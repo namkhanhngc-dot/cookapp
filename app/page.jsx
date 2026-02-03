@@ -4,6 +4,7 @@ import QuickFilters from '@/components/QuickFilters';
 import TrendingRecipes from '@/components/TrendingRecipes';
 import CategoryBrowser from '@/components/CategoryBrowser';
 import CreatorCTA from '@/components/CreatorCTA';
+import { Suspense } from 'react';
 import styles from './page.module.css';
 
 export const metadata = {
@@ -22,7 +23,9 @@ export default function HomePage() {
             <Navbar />
             <main className={styles.homepage}>
                 <Hero />
-                <QuickFilters />
+                <Suspense fallback={<div style={{ height: '80px' }} />}>
+                    <QuickFilters />
+                </Suspense>
                 <TrendingRecipes />
                 <CategoryBrowser />
                 <CreatorCTA />
