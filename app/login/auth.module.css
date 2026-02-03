@@ -1,0 +1,65 @@
+.authContainer {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  background: var(--gradient-cute);
+}
+
+.authCard {
+  width: 100%;
+  max-width: 450px;
+  background: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-2xl);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  animation: scaleIn 0.4s var(--transition);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.authHeader h1 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--space-sm);
+  color: var(--color-primary);
+}
+
+.authHeader p {
+  color: var(--color-text-light);
+  margin-bottom: 0;
+  font-size: var(--font-size-lg);
+}
+
+.form {
+  margin-bottom: var(--space-lg);
+}
+
+.error {
+  background-color: hsla(0, 70%, 70%, 0.15);
+  color: var(--color-error);
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-lg);
+  border-left: 4px solid var(--color-error);
+  font-weight: 500;
+}
+
+.authFooter {
+  text-align: center;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.authFooter a {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.authFooter a:hover {
+  text-decoration: underline;
+}

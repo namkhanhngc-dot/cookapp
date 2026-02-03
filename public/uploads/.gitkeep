@@ -1,0 +1,5 @@
+# Placeholder file to ensure directory exists in git
+# User uploads will be stored in subdirectories:
+# - recipes/ - Recipe images
+# - avatars/ - User avatars  
+# - cooksnaps/ - User cooking result photos

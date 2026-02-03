@@ -1,0 +1,62 @@
+.dietaryTagSelector {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+}
+
+.tagGroup {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.groupTitle {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.tagList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.tagItem {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all var(--transition);
+    user-select: none;
+}
+
+.tagItem:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.tagItem.selected {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+    color: white;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.tagIcon {
+    font-size: 1.25rem;
+}
+
+.tagName {
+    font-weight: 500;
+}

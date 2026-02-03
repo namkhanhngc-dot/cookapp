@@ -1,0 +1,150 @@
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    background: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+}
+
+.navContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: transform var(--transition);
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    color: var(--color-primary);
+}
+
+.logoIcon {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(255, 107, 0, 0.3));
+}
+
+.logoText {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.navLink {
+    color: var(--color-text-light);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+    position: relative;
+}
+
+.navLink:hover {
+    color: var(--color-primary);
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transition: width var(--transition);
+}
+
+.navLink:hover::after {
+    width: 100%;
+}
+
+.navAuth {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.userButton {
+    color: var(--color-text);
+    font-weight: 600;
+    transition: color var(--transition-fast);
+}
+
+.userButton:hover {
+    color: var(--color-primary);
+}
+
+.menuButton {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--color-text);
+    cursor: pointer;
+    padding: var(--space-sm);
+}
+
+.mobileMenu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .menuButton {
+        display: block;
+    }
+
+    .navLinks,
+    .navAuth {
+        display: none;
+    }
+
+    .mobileMenu {
+        display: flex;
+        flex-direction: column;
+        background: var(--color-surface);
+        border-bottom: 1px solid var(--color-border);
+        box-shadow: var(--shadow-md);
+    }
+
+    .mobileLink {
+        padding: var(--space-md) var(--space-lg);
+        color: var(--color-text);
+        font-weight: 500;
+        border-bottom: 1px solid var(--color-border-light);
+        transition: background var(--transition-fast);
+        background: none;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        text-align: left;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .mobileLink:hover {
+        background: var(--color-bg);
+        color: var(--color-primary);
+    }
+
+    .mobileLink:last-child {
+        border-bottom: none;
+    }
+}

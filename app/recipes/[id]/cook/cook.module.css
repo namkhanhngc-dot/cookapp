@@ -1,0 +1,221 @@
+.cookMode {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: var(--z-modal);
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.header {
+    background: var(--color-surface);
+    border-bottom: 2px solid var(--color-border);
+    padding: var(--space-md) var(--space-xl);
+    box-shadow: var(--shadow-md);
+}
+
+.header h2 {
+    font-size: var(--font-size-xl);
+    margin: var(--space-md) 0;
+    text-align: center;
+}
+
+.backBtn {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-weight: 600;
+    padding: var(--space-sm);
+    cursor: pointer;
+}
+
+.backBtn:hover {
+    text-decoration: underline;
+}
+
+.progress {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+    margin-top: var(--space-sm);
+}
+
+.progressBar {
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: width var(--transition);
+}
+
+.content {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    overflow: hidden;
+}
+
+.sidebar {
+    background: var(--color-bg-alt);
+    padding: var(--space-lg);
+    overflow-y: auto;
+    border-right: 1px solid var(--color-border);
+}
+
+.sidebar h3 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
+    border-bottom: 2px solid var(--color-primary);
+}
+
+.ingredientsList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.ingredient {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    border: 2px solid transparent;
+}
+
+.ingredient:hover {
+    border-color: var(--color-primary);
+}
+
+.ingredient.checked {
+    background: var(--color-primary);
+    color: white;
+    opacity: 0.7;
+}
+
+.ingredient.checked span {
+    text-decoration: line-through;
+}
+
+.ingredient input {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.timerSection {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--color-border);
+}
+
+.timerSection h4 {
+    margin-bottom: var(--space-md);
+}
+
+.timerActive {
+    text-align: center;
+}
+
+.timerDisplay {
+    font-family: var(--font-display);
+    font-size: var(--font-size-5xl);
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+}
+
+.timerButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+}
+
+.mainPanel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-2xl);
+    overflow-y: auto;
+    text-align: center;
+}
+
+.stepNumber {
+    font-weight: 600;
+    color: var(--color-text-light);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.stepInstruction {
+    font-family: var(--font-display);
+    font-size: var(--font-size-3xl);
+    font-weight: 600;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-bottom: var(--space-2xl);
+    color: var(--color-text);
+}
+
+.quickTimer {
+    margin-bottom: var(--space-2xl);
+}
+
+.navigation {
+    display: flex;
+    gap: var(--space-lg);
+    margin-top: auto;
+}
+
+.noSteps {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+@media (max-width: 1024px) {
+    .content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .sidebar {
+        max-height: 30vh;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+
+    .ingredientsList {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .stepInstruction {
+        font-size: var(--font-size-2xl);
+    }
+
+    .navigation {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .navigation button {
+        width: 100%;
+    }
+}

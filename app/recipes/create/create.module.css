@@ -1,0 +1,298 @@
+.createPage {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.pageTitle {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--space-sm);
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.pageSubtitle {
+    text-align: center;
+    color: var(--color-text-light);
+    margin-bottom: var(--space-2xl);
+}
+
+.form {
+    background: var(--color-surface);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-2xl);
+    box-shadow: var(--shadow-lg);
+}
+
+.section {
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
+    border-bottom: 2px solid var(--color-border-light);
+}
+
+.section:last-of-type {
+    border-bottom: none;
+}
+
+.sectionTitle {
+    font-size: var(--font-size-2xl);
+    font-weight: 600;
+    margin-bottom: var(--space-lg);
+    color: var(--color-primary);
+}
+
+.sectionHint {
+    color: var(--color-text-light);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-md);
+    font-style: italic;
+}
+
+.formGroup {
+    margin-bottom: var(--space-lg);
+}
+
+.label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: var(--space-sm);
+    color: var(--color-text);
+}
+
+.input,
+.textarea,
+.select {
+    width: 100%;
+    padding: var(--space-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    transition: all var(--transition);
+    font-family: inherit;
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+}
+
+.textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-lg);
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.categoryTag {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-weight: 500;
+}
+
+.categoryTag:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.categoryTag input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.ingredientRow,
+.instructionRow {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.instructionContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.instructionMeta {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.stepImageUpload {
+    margin-top: var(--space-sm);
+}
+
+.stepImageLabel {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+}
+
+.inputSmall {
+    width: 120px;
+    padding: var(--space-md);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+}
+
+.stepNumber {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--gradient-primary);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.instructionRow textarea {
+    flex: 1;
+}
+
+.addBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-bg);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    color: var(--color-text);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.addBtn:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.removeBtn {
+    width: 40px;
+    height: 40px;
+    background: var(--color-error-light);
+    border: none;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+    flex-shrink: 0;
+}
+
+.removeBtn:hover:not(:disabled) {
+    background: var(--color-error);
+    transform: scale(1.1);
+}
+
+.removeBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.submitSection {
+    display: flex;
+    gap: var(--space-lg);
+    justify-content: center;
+    margin-top: var(--space-2xl);
+}
+
+/* Meal Type Checkboxes */
+.mealTypes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition);
+    user-select: none;
+    font-weight: 500;
+}
+
+.checkbox:hover {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+}
+
+.checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    margin: 0;
+    accent-color: var(--color-primary);
+}
+
+.hint {
+    display: block;
+    margin-top: var(--space-xs);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-light);
+}
+
+@media (max-width: 768px) {
+    .form {
+        padding: var(--space-lg);
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+
+    .ingredientRow,
+    .instructionRow {
+        flex-wrap: wrap;
+    }
+
+    .inputSmall {
+        width: 100px;
+    }
+
+    .submitSection {
+        flex-direction: column;
+    }
+
+    .submitSection button {
+        width: 100%;
+    }
+}
