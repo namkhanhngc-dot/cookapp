@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styles from './ImageUpload.module.css';
 
-export default function ImageUpload({ images = [], onChange, maxFiles = 5, maxSize = 5242880 }) {
+export default function ImageUpload({ images = [], onChange, maxFiles = 5, maxSize = 5242880, compact = false }) {
     const [uploading, setUploading] = useState(false);
 
     const onDrop = async (acceptedFiles) => {
@@ -119,7 +119,7 @@ export default function ImageUpload({ images = [], onChange, maxFiles = 5, maxSi
             {/* Dropzone */}
             <div
                 {...getRootProps()}
-                className={`${styles.dropzone} ${isDragActive ? styles.active : ''} ${uploading ? styles.uploading : ''}`}
+                className={`${styles.dropzone} ${compact ? styles.dropzoneCompact : ''} ${isDragActive ? styles.active : ''} ${uploading ? styles.uploading : ''}`}
             >
                 <input {...getInputProps()} />
                 {uploading ? (

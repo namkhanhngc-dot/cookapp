@@ -12,6 +12,24 @@
     background: var(--color-bg);
 }
 
+/* Compact variant for step images */
+.dropzoneCompact {
+    padding: var(--space-lg);
+}
+
+.dropzoneCompact .dropzoneIcon {
+    font-size: 2rem;
+    margin-bottom: var(--space-sm);
+}
+
+.dropzoneCompact .dropzoneText {
+    font-size: var(--font-size-md);
+}
+
+.dropzoneCompact .dropzoneHint {
+    font-size: var(--font-size-xs);
+}
+
 .dropzone:hover {
     border-color: var(--color-primary);
     background: var(--color-surface);

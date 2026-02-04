@@ -393,6 +393,13 @@ export default function RecipeDetailPage({ params }) {
                                                 {inst.duration && (
                                                     <span className="badge">⏱️ {inst.duration} phút</span>
                                                 )}
+                                                {inst.image_url && (
+                                                    <img
+                                                        src={inst.image_url}
+                                                        alt={`Bước ${inst.step_number}`}
+                                                        className={styles.stepImage}
+                                                    />
+                                                )}
                                             </div>
                                         </div>
                                     ))}

@@ -20,18 +20,11 @@ export async function GET() {
                 r.created_at,
                 r.views,
                 u.username,
-                u.display_name,
-                COALESCE(COUNT(DISTINCT l.id), 0)::int as like_count,
-                COALESCE(AVG(rat.rating), 0)::numeric(3,2) as avg_rating,
-                COALESCE(COUNT(DISTINCT rat.id), 0)::int as rating_count
+                u.display_name
             FROM recipes r
             JOIN users u ON r.user_id = u.id
-            LEFT JOIN likes l ON r.id = l.recipe_id
-            LEFT JOIN ratings rat ON r.id = rat.recipe_id
             WHERE r.status = 'published'
-            AND r.created_at > NOW() - INTERVAL '30 days'
-            GROUP BY r.id, u.username, u.display_name
-            ORDER BY r.views DESC, like_count DESC, avg_rating DESC
+            ORDER BY r.views DESC, r.created_at DESC
             LIMIT 12`
         );
 
@@ -40,16 +33,20 @@ export async function GET() {
             const badges = [];
 
             if (recipe.views > 100) badges.push('trending');
-            if (recipe.like_count > 20) badges.push('popular');
-            if (recipe.rating_count > 10 && recipe.avg_rating >= 4.5) badges.push('highly-rated');
 
             return {
                 ...recipe,
                 badges,
                 author: recipe.display_name || recipe.username,
-                thumbnail: recipe.thumbnail_url || recipe.image_url
+                thumbnail: recipe.thumbnail_url || recipe.image_url,
+                like_count: 0,
+                avg_rating: 0,
+                rating_count: 0
             };
         });
+
+        console.log('Trending recipes found:', recipes.length);
+        console.log('Recipes:', recipes);
 
         return NextResponse.json({
             success: true,

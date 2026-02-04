@@ -2,6 +2,7 @@ import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import QuickFilters from '@/components/QuickFilters';
 import TrendingRecipes from '@/components/TrendingRecipes';
+import RecentRecipes from '@/components/RecentRecipes';
 import CategoryBrowser from '@/components/CategoryBrowser';
 import CreatorCTA from '@/components/CreatorCTA';
 import { Suspense } from 'react';
@@ -27,6 +28,7 @@ export default function HomePage() {
                     <QuickFilters />
                 </Suspense>
                 <TrendingRecipes />
+                <RecentRecipes />
                 <CategoryBrowser />
                 <CreatorCTA />
 

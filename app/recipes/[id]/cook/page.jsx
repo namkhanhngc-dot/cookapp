@@ -169,6 +169,16 @@ export default function CookModePage({ params }) {
                                 {currentInstruction.instruction}
                             </div>
 
+                            {currentInstruction.image_url && (
+                                <div className={styles.stepImageContainer}>
+                                    <img
+                                        src={currentInstruction.image_url}
+                                        alt={`Bước ${currentStep + 1}`}
+                                        className={styles.stepImage}
+                                    />
+                                </div>
+                            )}
+
                             {currentInstruction.duration && (
                                 <button
                                     onClick={() => startTimer(currentInstruction.duration)}

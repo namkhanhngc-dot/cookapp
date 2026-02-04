@@ -304,6 +304,23 @@ button {
   font-size: var(--font-size-lg);
 }
 
+.btn-gradient {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-md);
+  border: none;
+}
+
+.btn-gradient:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Cards */
 .card {
   background-color: var(--color-surface);

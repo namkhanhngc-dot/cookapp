@@ -55,6 +55,9 @@ export default function Navbar() {
                         <Link href="/search" className={styles.navLink}>
                             🔍 Tìm Kiếm
                         </Link>
+                        <Link href="/pantry" className={styles.navLink}>
+                            🤖 AI Tìm Công Thức
+                        </Link>
                         {user && (
                             <Link href="/recipes/create" className={styles.navLink}>
                                 ➕ Tạo Công Thức
@@ -108,6 +111,9 @@ export default function Navbar() {
                         </Link>
                         <Link href="/search" className={styles.mobileLink}>
                             🔍 Tìm Kiếm
+                        </Link>
+                        <Link href="/pantry" className={styles.mobileLink}>
+                            🤖 AI Tìm Công Thức
                         </Link>
                         {user ? (
                             <>

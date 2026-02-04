@@ -270,6 +270,16 @@
     margin-bottom: var(--space-sm);
 }
 
+.stepImage {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-md);
+    box-shadow: var(--shadow-sm);
+    display: block;
+}
+
 .cookModeButton {
     margin-top: var(--space-2xl);
     padding-top: var(--space-2xl);

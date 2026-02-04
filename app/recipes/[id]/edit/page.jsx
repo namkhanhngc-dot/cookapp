@@ -75,8 +75,8 @@ export default function EditRecipePage({ params }) {
                 instructions: recipeDetail.instructions?.map(inst => ({
                     instruction: inst.instruction,
                     duration: inst.duration || '',
-                    image: inst.image_url ? { url: inst.image_url, publicId: inst.image_public_id } : null
-                })) || [{ instruction: '', duration: '', image: null }],
+                    images: inst.image_url ? [{ url: inst.image_url, publicId: inst.image_public_id }] : []
+                })) || [{ instruction: '', duration: '', images: [] }],
 
                 categoryIds: recipeDetail.categories?.map(c => c.id) || [],
 
@@ -163,7 +163,7 @@ export default function EditRecipePage({ params }) {
     const addInstruction = () => {
         setFormData({
             ...formData,
-            instructions: [...formData.instructions, { instruction: '', duration: '', image: null }]
+            instructions: [...formData.instructions, { instruction: '', duration: '', images: [] }]
         });
     };
 
@@ -393,11 +393,12 @@ export default function EditRecipePage({ params }) {
                                         <div className={styles.stepImageUpload}>
                                             <label className={styles.stepImageLabel}>📸 Ảnh minh họa (tùy chọn)</label>
                                             <ImageUpload
-                                                key={`inst-${index}-${inst.image ? 'has' : 'no'}-image`}
-                                                images={inst.image ? [inst.image] : []}
-                                                onChange={(images) => updateInstruction(index, 'image', images[0] || null)}
-                                                maxFiles={1}
+                                                key={`inst-${index}-${inst.images?.length || 0}-images`}
+                                                images={inst.images || []}
+                                                onChange={(images) => updateInstruction(index, 'images', images)}
+                                                maxFiles={3}
                                                 maxSize={5242880}
+                                                compact={true}
                                             />
                                         </div>
                                     </div>

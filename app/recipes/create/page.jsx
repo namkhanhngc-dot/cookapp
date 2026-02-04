@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import ImageUpload from '@/components/ImageUpload';
 import ServingScaler from '@/components/ServingScaler';
+import RecipeGenerator from '@/components/RecipeGenerator';
 import styles from './create.module.css';
 
 export default function CreateRecipePage() {
@@ -13,6 +14,7 @@ export default function CreateRecipePage() {
     const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
     const [categories, setCategories] = useState([]);
+    const [showAIGenerator, setShowAIGenerator] = useState(false);
 
     const [formData, setFormData] = useState({
         // Basic info
@@ -41,7 +43,7 @@ export default function CreateRecipePage() {
 
         // Ingredients & Instructions
         ingredients: [{ name: '', quantity: '', unit: '' }],
-        instructions: [{ instruction: '', duration: '', image: null }],
+        instructions: [{ instruction: '', duration: '', images: [] }],
 
         // Storage & preservation
         storageInstructions: '',
@@ -117,7 +119,7 @@ export default function CreateRecipePage() {
     const addInstruction = () => {
         setFormData({
             ...formData,
-            instructions: [...formData.instructions, { instruction: '', duration: '', image: null }]
+            instructions: [...formData.instructions, { instruction: '', duration: '', images: [] }]
         });
     };
 
@@ -155,6 +157,27 @@ export default function CreateRecipePage() {
     // Serving scaler handler
     const handleServingChange = (newServings, multiplier) => {
         setFormData({ ...formData, servings: newServings });
+    };
+
+    // AI Recipe Generator handler
+    const handleAIRecipe = (recipe) => {
+        setFormData({
+            ...formData,
+            title: recipe.title,
+            description: recipe.description,
+            servings: recipe.servings,
+            servingsBase: recipe.servings,
+            prepTime: recipe.prep_time?.toString() || '',
+            cookTime: recipe.cook_time?.toString() || '',
+            difficulty: recipe.difficulty,
+            ingredients: recipe.ingredients,
+            instructions: recipe.instructions.map(inst => ({
+                instruction: inst.instruction,
+                duration: inst.duration?.toString() || '',
+                images: []
+            }))
+        });
+        setShowAIGenerator(false);
     };
 
     // Auto-generate meta title from recipe title
@@ -284,10 +307,21 @@ export default function CreateRecipePage() {
             <Navbar />
             <div className="container py-2xl">
                 <div className={styles.createPage}>
-                    <h1 className={styles.pageTitle}>✏️ Tạo Công Thức Mới</h1>
-                    <p className={styles.pageSubtitle}>
-                        Chia sẻ món ăn yêu thích của bạn với cộng đồng!
-                    </p>
+                    <div className={styles.pageHeader}>
+                        <div>
+                            <h1 className={styles.pageTitle}>✏️ Tạo Công Thức Mới</h1>
+                            <p className={styles.pageSubtitle}>
+                                Chia sẻ món ăn yêu thích của bạn với cộng đồng!
+                            </p>
+                        </div>
+                        <button
+                            type="button"
+                            onClick={() => setShowAIGenerator(true)}
+                            className="btn btn-gradient"
+                        >
+                            🤖 AI Tạo Công Thức
+                        </button>
+                    </div>
 
                     <form onSubmit={handleSubmit} className={styles.form}>
                         {/* IMAGES - Priority first! */}
@@ -550,10 +584,11 @@ export default function CreateRecipePage() {
                                         <div className={styles.stepImageUpload}>
                                             <label className={styles.stepImageLabel}>📸 Ảnh minh họa (tùy chọn)</label>
                                             <ImageUpload
-                                                images={inst.image ? [inst.image] : []}
-                                                onChange={(images) => updateInstruction(index, 'image', images[0] || null)}
-                                                maxFiles={1}
+                                                images={inst.images || []}
+                                                onChange={(images) => updateInstruction(index, 'images', images)}
+                                                maxFiles={3}
                                                 maxSize={5242880}
+                                                compact={true}
                                             />
                                         </div>
                                     </div>
@@ -691,6 +726,14 @@ export default function CreateRecipePage() {
                     </form>
                 </div>
             </div>
+
+            {/* AI Recipe Generator Modal */}
+            {showAIGenerator && (
+                <RecipeGenerator
+                    onRecipeGenerated={handleAIRecipe}
+                    onClose={() => setShowAIGenerator(false)}
+                />
+            )}
         </>
     );
 }
