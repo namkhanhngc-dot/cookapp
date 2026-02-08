@@ -16,28 +16,28 @@ export async function POST(request, { params }) {
         const { id } = await params;
         const recipeId = parseInt(id);
 
-        // Check if already liked
+        // Check if already saved
         const existing = await db.query(
-            `SELECT * FROM likes WHERE user_id = $1 AND recipe_id = $2`,
+            `SELECT * FROM saved_recipes WHERE user_id = $1 AND recipe_id = $2`,
             [currentUser.id, recipeId]
         );
 
-        let liked;
+        let saved;
         if (existing.rows.length > 0) {
-            // Unlike
-            await RecipeModel.unlike(currentUser.id, recipeId);
-            liked = false;
+            // Unsave
+            await RecipeModel.unsave(currentUser.id, recipeId);
+            saved = false;
         } else {
-            // Like
-            await RecipeModel.like(currentUser.id, recipeId);
-            liked = true;
+            // Save
+            await RecipeModel.save(currentUser.id, recipeId);
+            saved = true;
         }
 
-        return NextResponse.json({ liked });
+        return NextResponse.json({ saved });
     } catch (error) {
-        console.error('Toggle like error:', error);
+        console.error('Toggle save error:', error);
         return NextResponse.json(
-            { error: 'Failed to toggle like' },
+            { error: 'Failed to toggle save' },
             { status: 500 }
         );
     }

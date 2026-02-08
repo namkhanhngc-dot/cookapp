@@ -22,9 +22,20 @@ function SearchContent() {
         setLoading(true);
         try {
             const params = new URLSearchParams();
-            if (searchQuery) params.append('q', searchQuery);
-            if (category) params.append('category', category);
-            if (difficulty) params.append('difficulty', difficulty);
+
+            // Read from URL params
+            const q = searchParams.get('q');
+            const categoryParam = searchParams.get('category');
+            const difficultyParam = searchParams.get('difficulty');
+            const maxTime = searchParams.get('maxTime');
+            const dietary = searchParams.get('dietary');
+
+            // Add all params to API request
+            if (q) params.append('q', q);
+            if (categoryParam) params.append('category', categoryParam);
+            if (difficultyParam) params.append('difficulty', difficultyParam);
+            if (maxTime) params.append('maxTime', maxTime);
+            if (dietary) params.append('dietary', dietary);
 
             const res = await fetch(`/api/recipes?${params.toString()}`);
             const data = await res.json();

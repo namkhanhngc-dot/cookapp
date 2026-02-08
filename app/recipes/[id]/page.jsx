@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import Toast, { showToast } from '@/components/Toast';
 import styles from './recipe.module.css';
 
 export default function RecipeDetailPage({ params }) {
@@ -50,13 +51,88 @@ export default function RecipeDetailPage({ params }) {
             return;
         }
 
+        // Optimistic UI update
+        const wasLiked = recipe.is_liked;
+        setRecipe(prev => ({
+            ...prev,
+            is_liked: !wasLiked,
+            like_count: wasLiked ? prev.like_count - 1 : prev.like_count + 1
+        }));
+
         try {
             const res = await fetch(`/api/recipes/${id}/like`, { method: 'POST' });
-            if (res.ok) {
-                fetchRecipe(); // Refresh to get updated like status
+            if (!res.ok) {
+                // Revert on error
+                setRecipe(prev => ({
+                    ...prev,
+                    is_liked: wasLiked,
+                    like_count: wasLiked ? prev.like_count + 1 : prev.like_count - 1
+                }));
             }
         } catch (error) {
             console.error('Failed to like:', error);
+            // Revert on error
+            setRecipe(prev => ({
+                ...prev,
+                is_liked: wasLiked,
+                like_count: wasLiked ? prev.like_count + 1 : prev.like_count - 1
+            }));
+        }
+    };
+
+    const handleSave = async () => {
+        if (!user) {
+            alert('Vui lòng đăng nhập để lưu công thức');
+            return;
+        }
+
+        // Optimistic UI update
+        const wasSaved = recipe.is_saved;
+        setRecipe(prev => ({ ...prev, is_saved: !wasSaved }));
+
+        try {
+            const res = await fetch(`/api/recipes/${id}/save`, { method: 'POST' });
+            const data = await res.json();
+            if (!res.ok) {
+                // Revert on error
+                setRecipe(prev => ({ ...prev, is_saved: wasSaved }));
+                console.error('Save failed:', data.error);
+            }
+        } catch (error) {
+            console.error('Failed to save:', error);
+            // Revert on error
+            setRecipe(prev => ({ ...prev, is_saved: wasSaved }));
+        }
+    };
+
+    const handleShare = async () => {
+        const url = window.location.href;
+        const title = recipe?.title || 'Công thức';
+        const text = recipe?.description || 'Hãy xem công thức này!';
+
+        // Try native share API first (mobile)
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: title,
+                    text: text,
+                    url: url
+                });
+            } catch (error) {
+                if (error.name !== 'AbortError') {
+                    console.error('Share failed:', error);
+                }
+            }
+        } else {
+            // Fallback: copy to clipboard
+            try {
+                await navigator.clipboard.writeText(url);
+                showToast('✅ Đã sao chép link vào clipboard!', 'success');
+            } catch (error) {
+                console.error('Copy failed:', error);
+                // Final fallback: show URL
+                prompt('Sao chép link này:', url);
+            }
         }
     };
 
@@ -123,6 +199,7 @@ export default function RecipeDetailPage({ params }) {
     return (
         <>
             <Navbar />
+            <Toast />
 
             {/* Recipe Schema */}
             <script
@@ -177,6 +254,28 @@ export default function RecipeDetailPage({ params }) {
                                     </button>
                                 </div>
                             )}
+
+                            {/* Like, Save, Share Buttons */}
+                            <div className={styles.socialActions} style={{ marginTop: 'var(--space-md)', display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' }}>
+                                <button
+                                    onClick={handleLike}
+                                    className={`btn ${recipe.is_liked ? 'btn-primary' : 'btn-secondary'}`}
+                                >
+                                    ❤️ {recipe.is_liked ? 'Đã Thích' : 'Thích'}
+                                </button>
+                                <button
+                                    onClick={handleSave}
+                                    className={`btn ${recipe.is_saved ? 'btn-primary' : 'btn-secondary'}`}
+                                >
+                                    🔖 {recipe.is_saved ? 'Đã Lưu' : 'Lưu'}
+                                </button>
+                                <button
+                                    onClick={handleShare}
+                                    className="btn btn-secondary"
+                                >
+                                    📤 Chia Sẻ
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -301,10 +400,10 @@ export default function RecipeDetailPage({ params }) {
                             <button onClick={handleLike} className={`btn ${recipe.isLiked ? 'btn-primary' : 'btn-secondary'}`}>
                                 ❤️ {recipe.isLiked ? 'Đã Thích' : 'Thích'}
                             </button>
-                            <button className="btn btn-secondary">
-                                🔖 Lưu
+                            <button onClick={handleSave} className={`btn ${recipe.is_saved ? 'btn-primary' : 'btn-secondary'}`}>
+                                🔖 {recipe.is_saved ? 'Đã Lưu' : 'Lưu'}
                             </button>
-                            <button className="btn btn-secondary">
+                            <button onClick={handleShare} className="btn btn-secondary">
                                 📤 Chia Sẻ
                             </button>
                         </div>

@@ -8,7 +8,8 @@ export async function GET(request, { params }) {
         const { id } = await params;
         const currentUser = await AuthLib.getCurrentUser();
 
-        const user = await UserModel.findById(parseInt(id));
+        // Get user profile with stats
+        const user = await UserModel.getProfile(parseInt(id), currentUser?.id);
         if (!user) {
             return NextResponse.json(
                 { error: 'User not found' },
@@ -16,20 +17,11 @@ export async function GET(request, { params }) {
             );
         }
 
-        // Get user stats
-        const stats = await UserModel.getStats(parseInt(id));
-
         // Get user's recipes
         const recipes = await RecipeModel.search({
             userId: parseInt(id),
             limit: 12
         });
-
-        // Check if current user follows this user
-        let isFollowing = false;
-        if (currentUser && currentUser.id !== parseInt(id)) {
-            isFollowing = await UserModel.isFollowing(currentUser.id, parseInt(id));
-        }
 
         return NextResponse.json({
             user: {
@@ -39,10 +31,12 @@ export async function GET(request, { params }) {
                 bio: user.bio,
                 avatarUrl: user.avatar_url,
                 createdAt: user.created_at,
-                ...stats
+                recipeCount: user.recipe_count,
+                followerCount: user.follower_count,
+                followingCount: user.following_count
             },
             recipes,
-            isFollowing
+            isFollowing: user.is_following
         });
     } catch (error) {
         console.error('Get user profile error:', error);
